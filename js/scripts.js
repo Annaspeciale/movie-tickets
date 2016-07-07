@@ -1,39 +1,41 @@
 //business logic
-function Contact(first, last, birthday) {
-  this.firstName = first;
-  this.lastName = last;
-  this.birthday =birthday;
+function Ticketprice(movie, time, age) {
+  this.movie = movie;
+  this.time = time;
+  this.age =age;
 }
 
-Contact.prototype.fullInfo = function() {
-  return this.firstName + " " + this.lastName +" "+ this.birthday;
-}
+Ticketprice.prototype.fullCalc = function() {
+  // return this.movie + " " + this.time +" "+ this.age;
+  if (this.age<=18){
+    return this.age*5
+  }else if (this.age >18){
+    return this.age*3
+  }
+};
 
 // user interface logic
 $(document).ready(function() {
-  $("form#new-contact").submit(function(event) {
+  $("form#ticket").submit(function(event) {
     event.preventDefault();
 
-    var inputtedFirstName = $("input#new-first-name").val();
-    var inputtedLastName = $("input#new-last-name").val();
-    var inputtedBirthday= $("input#new-birthday").val();
+    var selectedMovie = $("select#new-movie").val();
+    var selectedTime = $("select#new-time").val();
+    var inputtedAge= parseInt($("input#new-age").val());
 
-    var newContact = new Contact(inputtedFirstName, inputtedLastName,inputtedBirthday );
+    var newTicketprice = new Ticketprice(selectedMovie, selectedTime,inputtedAge );
 
-    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullInfo() + "</span></li>");
+        $("ul#Ticketprice").append("<li><span class='prices'>" + newTicketprice.fullCalc() + "</span></li>");
 
-    $(".contact").last().click(function() {
-      $("#show-contact").show();
-      $("#show-contact h2").text(newContact.firstName);
-      $(".first-name").text(newContact.firstName);
-      $(".last-name").text(newContact.lastName);
-      $(".birthday").text(newContact.birthday);
+    $(".ticketprice").last().click(function() {
+      $("#show-Ticketprice").show();
+
 
     });
 
-    $("input#new-first-name").val("");
-    $("input#new-last-name").val("");
-    $("input#new-birthday").val("");
+    $("select#new-movie").val("");
+    $("select#new-time").val("");
+    $("input#new-age").val("");
 
   });
 });
