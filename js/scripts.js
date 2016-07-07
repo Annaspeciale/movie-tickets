@@ -7,13 +7,16 @@ function Ticketprice(movie, time, age) {
 
 Ticketprice.prototype.fullCalc = function() {
   // return this.movie + " " + this.time +" "+ this.age;
-  if (this.age<=18){
-    return this.age*5
-  }else if (this.age >18){
+  if (this.age<=18 && this.time==="18:00 pm"){
+    return this.age*2
+  }else if (this.age<=18 && this.time==="21:00 pm"){
     return this.age*3
-  }
+  }else if (this.age>18 && this.time==="18:00 pm"){
+    return this.age*4
+  }else if (this.age>18 && this.time==="21:00 pm"){
+    return this.age*5
 };
-
+};
 // user interface logic
 $(document).ready(function() {
   $("form#ticket").submit(function(event) {
@@ -25,7 +28,7 @@ $(document).ready(function() {
 
     var newTicketprice = new Ticketprice(selectedMovie, selectedTime,inputtedAge );
 
-        $("ul#Ticketprice").append("<li><span class='prices'>" + newTicketprice.fullCalc() + "</span></li>");
+        $("ul#Ticketprice").html("<li><span class='prices'>" + newTicketprice.fullCalc() + "</span></li>");
 
     $(".ticketprice").last().click(function() {
       $("#show-Ticketprice").show();
